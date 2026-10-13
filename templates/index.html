@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>J.A.R.V.I.S. // Stark Industries</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- Top Navigation & System HUD -->
+  <header class="hud-header">
+    <div class="hud-branding">
+      <div class="hud-mark">◈</div>
+      <div>
+        <h1 class="hud-title">J.A.R.V.I.S.</h1>
+        <p class="hud-subtitle">MARK VII // LOCAL NEURAL SYSTEM</p>
+      </div>
+    </div>
+
+    <div class="hud-telemetry">
+      <div class="telemetry-item">
+        <span class="label">CPU</span>
+        <div class="bar-container"><div class="bar" id="cpuBar" style="width: 20%;"></div></div>
+        <span class="val" id="cpuVal">--%</span>
+      </div>
+      <div class="telemetry-item">
+        <span class="label">RAM</span>
+        <div class="bar-container"><div class="bar" id="ramBar" style="width: 45%;"></div></div>
+        <span class="val" id="ramVal">-- GB</span>
+      </div>
+      <div class="telemetry-item">
+        <span class="label">PWR</span>
+        <span class="val" id="batteryVal">ONLINE</span>
+      </div>
+      <div class="telemetry-item model-selector-box">
+        <span class="label">CORE</span>
+        <select id="modelSelect" onchange="changeModel()">
+          <option value="qwen2.5:3b">qwen2.5:3b (Fast)</option>
+          <option value="llama3.1:8b">llama3.1:8b (Deep)</option>
+        </select>
+      </div>
+      <div class="telemetry-item model-selector-box">
+        <span class="label">VOICE</span>
+        <select id="voiceSelect" onchange="changeVoice()">
+          <option value="jarvis">J.A.R.V.I.S. (British HD)</option>
+          <option value="jarvis_deep">J.A.R.V.I.S. Deep (British HD)</option>
+          <option value="friday">F.R.I.D.A.Y. (Female HD)</option>
+          <option value="christopher">Christopher (US HD)</option>
+          <option value="browser">Browser Native (Offline)</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- Central Visualizer & Arc Reactor -->
+  <main class="reactor-stage">
+    <div class="reactor-outer">
+      <canvas id="audioCanvas" width="360" height="360"></canvas>
+      
+      <div class="reactor-core" id="reactorCore" onclick="toggleSpeech()">
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+        
+        <div class="core-center">
+          <div class="core-glyph" id="coreGlyph">🎙️</div>
+          <div class="core-status" id="coreStatus">STANDBY</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="state-banner" id="stateBanner">
+      SYSTEMS NOMINAL · TAP ARC REACTOR TO INITIATE VOICE COMMAND
+    </div>
+  </main>
+
+  <!-- Chat Log Terminal -->
+  <section class="log-container">
+    <div class="log-header">
+      <span>// REAL-TIME PROTOCOL LOG</span>
+      <button class="text-btn" onclick="clearLog()">PURGE LOG</button>
+    </div>
+    <div class="log-feed" id="logFeed">
+      <div class="log-entry system">
+        <span class="tag">[SYSTEM]</span> J.A.R.V.I.S. Core online. Edge inference active on local GPU. Tap the core or type below to command.
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Command Interface -->
+  <footer class="command-bar">
+    <div class="input-wrapper">
+      <span class="input-prefix">&gt;</span>
+      <input type="text" id="textInput" placeholder="Enter voice command or query..." autocomplete="off" onkeydown="handleInputKey(event)"/>
+      <button class="send-btn" id="sendBtn" onclick="submitTextInput()">
+        <span>TRANSMIT</span>
+      </button>
+    </div>
+
+    <div class="quick-bar">
+      <button class="quick-chip" onclick="quickCommand('Jarvis, status report.')">📊 Status Report</button>
+      <button class="quick-chip" onclick="quickCommand('Who is Indian Stark and why were you created?')">🦾 Indian Stark</button>
+      <button class="quick-chip" onclick="quickCommand('Explain your mission in cybersecurity research.')">🛡️ Cyber Mission</button>
+      <button class="quick-chip" onclick="toggleContinuousMode()" id="contBtn">🔄 Hands-Free: OFF</button>
+      <button class="quick-chip" onclick="stopSpeech()">🔇 Stop Voice</button>
+    </div>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

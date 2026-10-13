@@ -1,0 +1,17 @@
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.env
+
+# Cloudflare binary (auto-downloaded by share.bat if missing)
+cloudflared.exe
+
+# Audio cache
+*.mp3
+*.wav
+
+# OS artifacts
+.DS_Store
+Thumbs.db
